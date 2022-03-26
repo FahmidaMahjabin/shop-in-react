@@ -2,7 +2,7 @@ import React from 'react';
 import Products from '../Products/Products';
 import { useState, useEffect } from 'react';
 import Cart from '../Cart/Cart';
-import { addToDb } from '../../utilities/fakedb'
+import { addToDb, getShoppingCart } from '../../utilities/fakedb'
 
 const Container = () => {
 
@@ -16,6 +16,27 @@ const Container = () => {
     // order Detail 
     // jei product e click korbo oita cart ekta array te ekta element oita add hobe 
     const [cart, setCart] = useState([])
+   
+    // localStorage theke jei shopping cart pabo seta theke ekta kore id niye oi id er product ta cart e add korbo 
+
+    useEffect(()=>{
+        const shoppingCart = getShoppingCart();
+        console.log("get shopping cart from local Storage:", shoppingCart);
+        const savedCart = [];
+        for(let id in shoppingCart){
+            // console.log("product added in cart:", id);
+            const addedProduct = products.find(product => product.id === id);
+            if(addedProduct){
+                const quantity = shoppingCart[id];
+                addedProduct.quantity = quantity;
+                // console.log("added product", addedProduct);
+                savedCart.push(addedProduct)
+                
+            }
+        }
+        setCart(savedCart)
+    }, [products])
+
     const orderDetail = (product) =>{
         console.log("id is:", product.id);
         const newCart = [...cart, product];
@@ -24,6 +45,7 @@ const Container = () => {
         addToDb(product.id)
 
     }
+
     return (
         <div className = "container">
             <div className = "row">
