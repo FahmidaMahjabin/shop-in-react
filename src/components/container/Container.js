@@ -1,6 +1,7 @@
 import React from 'react';
 import Products from '../Products/Products';
 import { useState, useEffect } from 'react';
+import Cart from '../Cart/Cart';
 const Container = () => {
 
     let [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ const Container = () => {
         .then(response => response.json())
         .then(data => setProducts(data))
     }, [])
-    console.log("Products:",products)
+    // console.log("Products:",products)
     // order Detail 
     // jei product e click korbo oita cart ekta array te ekta element oita add hobe 
     const [cart, setCart] = useState([])
@@ -17,7 +18,7 @@ const Container = () => {
         console.log("id is:", product.id);
         const newCart = [...cart, product];
         setCart(newCart);
-        console.log("cart:", cart)
+        // console.log("cart:", cart)
 
     }
     return (
@@ -26,11 +27,7 @@ const Container = () => {
                 <div className= "col-lg-10 bg-light">
                 <Products products = {products} eventHandler = {orderDetail}></Products></div>
                 <div className = "col-lg-2 bg-warning">
-                    <h2>Order Detail</h2>
-                    <div>
-                        <p>Total Selected Item: {cart.length}</p>
-                        <p></p>
-                    </div>
+                    <Cart cartItems = {cart}></Cart>
                 </div>
             </div>
         </div>
