@@ -18,7 +18,14 @@ const Container = () => {
     const [cart, setCart] = useState([])
    
     // localStorage theke jei shopping cart pabo seta theke ekta kore id niye oi id er product ta cart e add korbo 
+    const orderDetail = (product) =>{
+        console.log("product in cart",product);
+        const newCart = [...cart, product];
+        setCart(newCart);
+        console.log("cart:", cart)
+        addToDb(product.id)
 
+    }
     useEffect(()=>{
         const shoppingCart = getShoppingCart();
         console.log("get shopping cart from local Storage:", shoppingCart);
@@ -28,23 +35,18 @@ const Container = () => {
             const addedProduct = products.find(product => product.id === id);
             if(addedProduct){
                 const quantity = shoppingCart[id];
-                addedProduct.quantity = quantity;
+                console.log("quantity:", quantity)
+                addedProduct.quantity = quantity + 1;
                 // console.log("added product", addedProduct);
                 savedCart.push(addedProduct)
                 
             }
+            
         }
         setCart(savedCart)
     }, [products])
 
-    const orderDetail = (product) =>{
-        console.log("id is:", product.id);
-        const newCart = [...cart, product];
-        setCart(newCart);
-        // console.log("cart:", cart)
-        addToDb(product.id)
-
-    }
+    
 
     return (
         <div className = "container">
