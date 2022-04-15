@@ -2,7 +2,7 @@ import React from 'react';
 import  { useState } from 'react';
 const useUserInfo = () => {
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [passWord, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const getEmail = (event) =>{
@@ -19,8 +19,9 @@ const useUserInfo = () => {
     return (
         {
             email,
-            password,
+            passWord,
             confirmPassword,
+            error,
             setError,
             getEmail,
             getPassWord,
