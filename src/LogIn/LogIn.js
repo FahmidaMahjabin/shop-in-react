@@ -5,21 +5,23 @@ import useUserInfo from '../Hooks/useUserInfo';
 import auth from '../init';
 import './LogIn.css';
 const LogIn = () => {
-    const {email, passWord, setError, getEmail, getPassWord} = useUserInfo();
+    const {user, email, passWord, setError, getEmail, getPassWord} = useUserInfo();
     const [signInWithEmailAndPassword,
     
     error
     
   ] = useSignInWithEmailAndPassword(auth);
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
+  console.log("from:", from)
 
-const [user] = useAuthState(auth);
-const logInWIthEmailPassword = () =>{
+    const logInWIthEmailPassword = () =>{
     signInWithEmailAndPassword(email, passWord);
     console.log("email:", email, "password:", passWord, "user:", user);
     
     if (user){
-        navigate("/order")
+        navigate(from, {replace:true})
 
     }
 }

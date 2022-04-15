@@ -1,6 +1,10 @@
 import React from 'react';
 import  { useState } from 'react';
+import  auth from "../init";
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 const useUserInfo = () => {
+    const [user] = useAuthState(auth);
     const [email, setEmail] = useState("");
     const [passWord, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -17,7 +21,7 @@ const useUserInfo = () => {
     
 
     return (
-        {
+        {   user,
             email,
             passWord,
             confirmPassword,

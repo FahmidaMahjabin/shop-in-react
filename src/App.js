@@ -8,7 +8,9 @@ import { Route, Routes } from 'react-router-dom';
 import OrderDetail from "./components/orderDetail/OrderDetail";
 import LogIn from './LogIn/LogIn';
 import SignIn from './SignIn/SignIn';
-import Cart from './components/Cart/Cart';
+
+import RequireAuth from './components/RequireAuth/RequireAuth';
+import Shipment from './components/Shipment/Shipment';
 const App = () => {
   return (
     <div>
@@ -16,10 +18,20 @@ const App = () => {
       <Routes>
         
         <Route path = "/" element = {<Container></Container>}></Route>
-        <Route path = "/order" element = {<OrderDetail></OrderDetail>}></Route>
+        <Route path = "/order" element = {
+          <RequireAuth>
+            <OrderDetail></OrderDetail>
+          </RequireAuth>
+        
+        }></Route>
         {/* <Route path = "/cart" element = {<Cart></Cart>}></Route> */}
         <Route path = "/logIn" element = {<LogIn></LogIn>}></Route>
         <Route path = "/signIn" element = {<SignIn></SignIn>}></Route>
+        <Route path = "/shipment" element = {
+          <RequireAuth>
+            <Shipment></Shipment>
+          </RequireAuth>
+        }></Route>
       </Routes>
     </div>
   );

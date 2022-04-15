@@ -9,9 +9,9 @@ import { useCreateUserWithEmailAndPassword, useAuthState } from 'react-firebase-
 
 
 const SignIn = () => {
-    const { email, passWord, confirmPassword, error, setError, getEmail, getPassWord, getConfirmPassword } = useUserInfo();
+    const {user, email, passWord, confirmPassword, error, setError, getEmail, getPassWord, getConfirmPassword } = useUserInfo();
     const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
-    const [user] = useAuthState(auth);
+    
     const navigate = useNavigate();
     const signInWithEmail = () => {
         console.log("password:", passWord, "confirmPassword:", confirmPassword)
